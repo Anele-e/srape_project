@@ -55,7 +55,7 @@ ROBOTSTXT_OBEY = True
 #DOWNLOADER_MIDDLEWARES = {
 #    "books.middlewares.BooksDownloaderMiddleware": 543,
 #}
-
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
@@ -90,6 +90,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
 # Set settings whose default value is deprecated to a future-proof value
+LOG_LEVEL = "INFO"
+LOG_FILE = "book_scraper.log"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
@@ -102,7 +104,11 @@ MONGO_USER = os.getenv("MONGO_USER")
 MONGO_PASS = os.getenv("MONGO_PASS")
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
 
-MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:27017/"
+print(f"MONGO_USER={MONGO_USER}, MONGO_PASS={MONGO_PASS}, MONGO_HOST={MONGO_HOST}")  # Debugging
+
+
+MONGO_PORT = os.getenv("MONGO_PORT", "27018")  # Use host port
+MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/"
 
 MONGO_DATABASE = "books_db"
 
